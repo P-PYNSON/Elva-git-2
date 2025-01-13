@@ -4,7 +4,27 @@ import FormEntry from "./components/FormEntry";
 
 export default function App() {
   const [started, setStarted] = useState(true);
-    
+  const [partakers, setPartakers] = useState([
+    { name: "", excluded: "" },
+    { name: "", excluded: "" },
+    { name: "", excluded: "" },
+  ]);
+  const [finalArray, setFinalArray] = useState([{}]);
+
+  const addPartaker = () => {
+    const newPartakers = [...partakers];
+    newPartakers.push({ name: "", excluded: "" });
+    setPartakers(newPartakers);
+  };
+
+  const verifyPartakers = () => {
+   
+  };
+
+  const shuffle = () => {
+   
+  };
+
   return (
     <div className="bg-attachment-local bg-cover bg-center h-screen w-screen flex flex-col items-center p-10 font-bold" style={{ backgroundImage: `url(${backgroundImage})` }}>
       {!started && (
@@ -23,6 +43,20 @@ export default function App() {
           <p>
             Comment ça marche ? Remplissez le formulaire des participants, et cliquez sur melanger ! Les paires se formerons aléatoirement et un code sera donné pour chaque participant, lui permettant de découvrir la personne à qu'il il offrira son cadeau en toute confidentialité. <br /> Préparez un cadeau spécial et attendez la grande révélation ! 🎄 C'est simple, amusant et parfait pour partager la joie des fêtes avec vos proches, vos collègues ou vos amis, même à distance. Alors, qu'attendez-vous ? 🎁 Lancez-vous et faites de cette saison un moment inoubliable !
           </p>
+
+          <h1 className="text-3xl underline mt-5">FORMULAIRE DES PARTICIPANTS</h1>
+
+          {partakers.map((partaker, i) => (
+            <FormEntry key={i} index={i} partakers={partakers} setPartakers={setPartakers} />
+          ))}
+
+          <button className="p-4 w-64 mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={addPartaker}>
+            Ajouter un participant
+          </button>
+
+          <button className="p-4 w-64 mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={shuffle}>
+            Lancer le tirage !
+          </button>
         </div>
       )}
     </div>
