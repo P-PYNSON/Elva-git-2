@@ -4,12 +4,14 @@ import FormEntry from "./components/FormEntry";
 
 export default function App() {
   const [started, setStarted] = useState(true);
+  const [shuffled, setShuffled] = useState(false);
   const [partakers, setPartakers] = useState([
     { name: "", excluded: "" },
     { name: "", excluded: "" },
     { name: "", excluded: "" },
   ]);
   const [finalArray, setFinalArray] = useState([{}]);
+  
 
   const addPartaker = () => {
     const newPartakers = [...partakers];
@@ -17,12 +19,53 @@ export default function App() {
     setPartakers(newPartakers);
   };
 
+
   const verifyPartakers = () => {
-   
+    let valid = true;
+    partakers.forEach((partaker) => {
+      if (partaker.name.length === 0) {
+        valid = false;
+      }
+    });
+    return valid;
   };
 
   const shuffle = () => {
-   
+    if (!verifyPartakers()) {
+      alert("Veuillez remplir tous les champs pour continuer.");
+      return;
+    }
+
+    let wasGivenArray = [];
+    let finalresult = [];
+
+    // on trie les participants pour que ceux qui ont des exclusions soient en premier
+    const sortedArray = partakers.sort((a, b) => {
+      if (a.excluded !== "" && b.excluded === "") {
+        return -1;
+      }
+      if (a.excluded === "" && b.excluded !== "") {
+        return 1;
+      }
+      return 0;
+    });
+
+    sortedArray.forEach((partaker) => {
+      const potentialGivers = sortedArray.filter((p) => p.name !== partaker.name && p.name !== partaker.excluded && !wasGivenArray.includes(p.name));
+
+      if (potentialGivers.length === 0) {
+        alert("Les exclusions actuelles ne permettent pas de former toutes les paire.");
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * potentialGivers.length);
+      const randomGiver = potentialGivers[randomIndex];
+      wasGivenArray.push(randomGiver.name);
+      finalresult.push({ giver: randomGiver.name, receiver: partaker.name, code: Math.floor(10000 + Math.random() * 90000).toString() });
+    });
+
+    setFinalArray(finalresult);
+    setShuffled(true);
   };
 
   return (
@@ -35,7 +78,7 @@ export default function App() {
         </div>
       )}
 
-      {started && (
+      {started && !shuffled && (
         <div className="w-full max-w-4xl bg-black p-6 m-10 flex flex-col rounded-lg shadow-xl shadow-white gap-8">
           <p className="text-xl text-white">
             🎅 Bienvenue sur Secret Santa ! 🎁 La magie des fêtes commence ici ! <br /> Découvrez votre destinataire mystère, et préparez-vous à offrir un cadeau qui illuminera leur journée. ✨{" "}
@@ -57,6 +100,19 @@ export default function App() {
           <button className="p-4 w-64 mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={shuffle}>
             Lancer le tirage !
           </button>
+        </div>
+      )}
+
+      {shuffled && (
+        <div className="w-full max-w-4xl bg-black p-6 m-10 flex flex-col rounded-lg shadow-xl shadow-white gap-8">
+          <h1 className="text-3xl underline mt-5">RESULTATS</h1>
+          {finalArray.map((result, i) => (
+            <div>
+              <p className="text-white text-xl">
+                🎁🎄 Partipant "<span className="text-red-800">{result.giver}</span>" reçoit le code: {result.code} 🔒
+              </p>
+            </div>
+          ))}
         </div>
       )}
     </div>
