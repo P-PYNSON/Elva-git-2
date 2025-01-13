@@ -3,23 +3,36 @@ import backgroundImage from "./assets/background.webp";
 import FormEntry from "./components/FormEntry";
 
 export default function App() {
-  const [started, setStarted] = useState(true);
+  
+  const [started, setStarted] = useState(false);
   const [shuffled, setShuffled] = useState(false);
+
   const [partakers, setPartakers] = useState([
     { name: "", excluded: "" },
     { name: "", excluded: "" },
     { name: "", excluded: "" },
   ]);
   const [finalArray, setFinalArray] = useState([{}]);
-  
+  const [codeInputValue, setCodeInputValue] = useState("");
+  const [receiver, setReceiver] = useState("");
 
+  // Fonction pour ajouter un participant
   const addPartaker = () => {
     const newPartakers = [...partakers];
     newPartakers.push({ name: "", excluded: "" });
     setPartakers(newPartakers);
   };
 
+  // Fonction pour retirer un participant
+  const removePartaker = (index) => {
+    if (index > 2) {
+      const newPartakers = [...partakers];
+      newPartakers.splice(index, 1);
+      setPartakers(newPartakers);
+    }
+  };
 
+  // Fonction pour vérifier que tous les participants ont un nom
   const verifyPartakers = () => {
     let valid = true;
     partakers.forEach((partaker) => {
@@ -30,6 +43,7 @@ export default function App() {
     return valid;
   };
 
+  // Fonction pour mélanger les participants
   const shuffle = () => {
     if (!verifyPartakers()) {
       alert("Veuillez remplir tous les champs pour continuer.");
@@ -50,6 +64,8 @@ export default function App() {
       return 0;
     });
 
+
+    // on attribue un participant à un autre
     sortedArray.forEach((partaker) => {
       const potentialGivers = sortedArray.filter((p) => p.name !== partaker.name && p.name !== partaker.excluded && !wasGivenArray.includes(p.name));
 
@@ -66,6 +82,16 @@ export default function App() {
 
     setFinalArray(finalresult);
     setShuffled(true);
+  };
+
+  // Fonction pour afficher le destinataire
+  const showReceiver = () => {
+    const result = finalArray.find((res) => res.code === codeInputValue);
+    if (!result) {
+      alert("Code invalide.");
+      return;
+    }
+    setReceiver(result.receiver);
   };
 
   return (
@@ -113,6 +139,15 @@ export default function App() {
               </p>
             </div>
           ))}
+
+          <label htmlFor="textInput" className="text-white text-xl flex flex-col items-center justify-center gap-2">
+            Entrez votre code secret pour découvrir votre destinataire mystère :
+            <input type="text" id="textInput" onChange={(e) => setCodeInputValue(e.target.value)} value={codeInputValue} />
+          </label>
+
+          <button onClick={showReceiver}>🎁 Découvrir 🎁</button>
+          {receiver && <p className="text-white text-xl">🎄🎅 Votre destinataire mystère est : " <span className="text-red-800">{receiver}</span> " 🎅🎄</p>}
+          
         </div>
       )}
     </div>
