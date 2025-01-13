@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function FormEntry({ index, partakers, setPartakers }) {
+export default function FormEntry({ index, partakers, setPartakers, removePartaker }) {
   const [name, setName] = useState("");
   const [excluded, setExcluded] = useState("");
 
@@ -30,6 +30,12 @@ export default function FormEntry({ index, partakers, setPartakers }) {
           {partakers.map((partaker, i) => partaker.name !== partakers[index].name && partaker.name.length > 0 && <option key={i}>{partaker.name}</option>)}
         </select>
       </label>
+      {index > 2 && (
+        <button className="p-4 font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={() => removePartaker(index)}>
+          {" "}
+          ❌{" "}
+        </button>
+      )}
     </div>
   );
 }
