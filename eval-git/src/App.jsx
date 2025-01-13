@@ -95,7 +95,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-attachment-local bg-cover bg-center h-screen w-screen flex flex-col items-center p-10 font-bold" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className="bg-fixed bg-cover bg-center min-h-screen w-screen flex flex-col items-center p-10 font-bold" style={{ backgroundImage: `url(${backgroundImage})` }}>
       {!started && (
         <div className="w-full h-full flex flex-col items-center justify-center">
           <button className="p-10 font-bold text-2xl shadow-xl shadow-white hover:shadow-none hover:bg-slate-700" onClick={() => setStarted(true)}>
