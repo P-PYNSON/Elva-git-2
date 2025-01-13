@@ -1,7 +1,5 @@
 ///////////////////////// Etapes / difficultés\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-
-
 --Créé le dossier
 --Créé l'app (react + tailwind) en ligne de commande:
             
@@ -21,7 +19,7 @@ MAIS.
 J'avais initialiser le repos sur le dossier de base, pas sur le dossier de l'app. Hors le worker github doit se trouver à la racine du repo. Il a fallu que je bouges tous les fichiers de l'app à la racine du repo pour que le worker ait acces au package.json. Et que je débug le worker, qui se lance uniquement sur un push ou une PR.
 
 Le git flow en a pris un coup. 
-J'ai travaillé sur la branche dev directement par soucis de temps.
+J'ai travaillé sur la branche dev directement après ça, par soucis de temps.
             
 
 ///////////////////////// COMMANDS HISTORY (une partie) \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
