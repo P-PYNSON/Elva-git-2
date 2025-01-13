@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 export default function FormEntry({ index, partakers, setPartakers, removePartaker }) {
-  const [name, setName] = useState("");
-  const [excluded, setExcluded] = useState("");
 
   const changePartakerName = (e) => {
     const newPartakers = [...partakers];
