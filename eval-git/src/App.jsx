@@ -110,21 +110,21 @@ export default function App() {
             🎅 Bienvenue sur Secret Santa ! 🎁 La magie des fêtes commence ici ! <br /> Découvrez votre destinataire mystère, et préparez-vous à offrir un cadeau qui illuminera leur journée. ✨{" "}
           </p>
           <p>
-            Comment ça marche ? Remplissez le formulaire des participants, et cliquez sur melanger ! Les paires se formerons aléatoirement et un code sera donné pour chaque participant, lui permettant de découvrir la personne à qu'il il offrira son cadeau en toute confidentialité. <br /> Préparez un cadeau spécial et attendez la grande révélation ! 🎄 C'est simple, amusant et parfait pour partager la joie des fêtes avec vos proches, vos collègues ou vos amis, même à distance. Alors, qu'attendez-vous ? 🎁 Lancez-vous et faites de cette saison un moment inoubliable !
+            Comment ça marche ? Remplissez le formulaire des participants, et cliquez sur "Lancer le tirage" ! Les paires se formerons aléatoirement et un code sera donné pour chaque participant, lui permettant de découvrir à qui il offrira son cadeau, en toute confidentialité. <br /> <br /> Préparez un cadeau spécial et attendez la grande révélation ! 🎄 C'est simple, amusant et parfait pour partager la joie des fêtes avec vos proches, vos collègues ou vos amis, même à distance. Alors, qu'attendez-vous ? 🎁 Lancez-vous et faites de cette saison un moment inoubliable !
           </p>
 
           <h1 className="text-3xl underline mt-5">FORMULAIRE DES PARTICIPANTS</h1>
 
           {partakers.map((partaker, i) => (
-            <FormEntry key={i} index={i} partakers={partakers} setPartakers={setPartakers} />
+            <FormEntry key={i} index={i} partakers={partakers} setPartakers={setPartakers} removePartaker={removePartaker} />
           ))}
 
-          <button className="p-4 w-64 mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={addPartaker}>
+          <button className="p-2  mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={addPartaker}>
             Ajouter un participant
           </button>
 
-          <button className="p-4 w-64 mx-auto font-bold text-2xl shadow-sm shadow-white hover:shadow-none hover:bg-slate-700" onClick={shuffle}>
-            Lancer le tirage !
+          <button className="p-4  mx-auto bg-red-900 font-bold text-2xl shadow-lg shadow-white hover:shadow-none hover:bg-slate-700" onClick={shuffle}>
+          ☃️  Lancer le tirage ! ☃️
           </button>
         </div>
       )}
