@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function FormEntry({ index, partakers, setPartakers, removePartaker }) {
 
   const changePartakerName = (e) => {
